@@ -55,12 +55,20 @@ button:hover {
 }
 
 .puzzle-section {
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 20px;
+}
+
+.word-group {
+    display: flex;
+    margin: 0 10px 10px 0;
+    align-items: flex-start;
 }
 
 .letter-group {
     display: inline-block;
-    margin: 5px;
+    margin: 2px;
     text-align: center;
 }
 

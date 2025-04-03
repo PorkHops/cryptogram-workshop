@@ -8,13 +8,14 @@ function createCryptogram() {
     const puzzleSection = document.getElementById('puzzle-section');
     puzzleSection.innerHTML = '';
 
-    // Create letter groups for each character
-    input.split('').forEach((letter, index) => {
-        if (letter === ' ') {
-            const spaceDiv = document.createElement('div');
-            spaceDiv.className = 'space-group';
-            puzzleSection.appendChild(spaceDiv);
-        } else {
+    // Split input into words and create word groups
+    const words = input.split(' ');
+    words.forEach(word => {
+        const wordGroup = document.createElement('div');
+        wordGroup.className = 'word-group';
+
+        // Create letter groups for each character in the word
+        word.split('').forEach(letter => {
             const letterGroup = document.createElement('div');
             letterGroup.className = 'letter-group';
 
@@ -36,8 +37,10 @@ function createCryptogram() {
             solutionInput.addEventListener('keydown', handleKeyDown);
 
             letterGroup.appendChild(solutionInput);
-            puzzleSection.appendChild(letterGroup);
-        }
+            wordGroup.appendChild(letterGroup);
+        });
+
+        puzzleSection.appendChild(wordGroup);
     });
 
     // Focus on first input
