@@ -31,9 +31,11 @@ function createCryptogram() {
             solutionInput.className = 'solution-input';
             solutionInput.maxLength = 1;
             solutionInput.dataset.letter = letter;
-
-            // Add event listeners
-            solutionInput.addEventListener('input', (e) => handleInput(e, letter));
+// Add event listeners
+solutionInput.addEventListener('input', (e) => handleInput(e, letter));
+solutionInput.addEventListener('keydown', handleKeyDown);
+solutionInput.addEventListener('focus', () => highlightMatching(letter));
+solutionInput.addEventListener('blur', removeHighlights);
             solutionInput.addEventListener('keydown', handleKeyDown);
 
             letterGroup.appendChild(solutionInput);
@@ -77,6 +79,24 @@ function handleInput(event, encryptedLetter) {
             nextInput.focus();
         }
     }
+}
+
+function highlightMatching(letter) {
+    // Remove any existing highlights
+    removeHighlights();
+    
+    // Add highlight to all inputs with matching letter
+    const allInputs = document.querySelectorAll('.solution-input');
+    allInputs.forEach(inp => {
+        if (inp.dataset.letter === letter) {
+            inp.classList.add('highlight');
+        }
+    });
+}
+
+function removeHighlights() {
+    const allInputs = document.querySelectorAll('.solution-input');
+    allInputs.forEach(inp => inp.classList.remove('highlight'));
 }
 
 function handleKeyDown(event) {

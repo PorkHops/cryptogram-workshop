@@ -62,8 +62,18 @@ button:hover {
 
 .word-group {
     display: flex;
-    margin: 0 10px 10px 0;
+    margin: 0 25px 10px 0;
     align-items: flex-start;
+}
+
+.solution-input:focus {
+    outline: 2px solid #007bff;
+    border-color: #007bff;
+}
+
+.highlight {
+    background-color: #e3f2fd;
+    border-color: #007bff;
 }
 
 .letter-group {
