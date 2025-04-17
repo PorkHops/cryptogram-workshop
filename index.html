@@ -9,16 +9,16 @@
 <body>
     <div class="container">
         <h1>Cryptogram Workshop</h1>
-        
+
         <div class="input-section">
             <label for="cryptogram-input">Enter your cryptogram:</label>
             <input type="text" id="cryptogram-input" placeholder="Enter encrypted text...">
-            <div class="button-group">
-                <button onclick="createCryptogram()">Create Puzzle</button>
+            <div style="text-align: center;">
                 <label class="inline-option">
                     <input type="checkbox" id="unique-letters" checked>
                     Force unique letters
                 </label>
+                <button onclick="createCryptogram()">Create Puzzle</button>
             </div>
         </div>
 

@@ -11,34 +11,35 @@ function createCryptogram() {
     // Split input into words and create word groups
     const words = input.split(' ');
     words.forEach(word => {
-        const wordGroup = document.createElement('div');
-        wordGroup.className = 'word-group';
+        const wordGroup           = document.createElement('div');
+              wordGroup.className = 'word-group';
 
         // Create letter groups for each character in the word
         word.split('').forEach(letter => {
-            const letterGroup = document.createElement('div');
-            letterGroup.className = 'letter-group';
+            const letterGroup           = document.createElement('div');
+                  letterGroup.className = 'letter-group';
 
             // Display encrypted letter
-            const encryptedSpan = document.createElement('span');
-            encryptedSpan.className = 'encrypted-letter';
-            encryptedSpan.textContent = letter;
+            const encryptedSpan             = document.createElement('span');
+                  encryptedSpan.className   = 'encrypted-letter';
+                  encryptedSpan.textContent = letter;
             letterGroup.appendChild(encryptedSpan);
 
             // Check if the character is punctuation
             if (/[^a-zA-Z]/.test(letter)) {
                 // For punctuation, just display it without an input box
-                const punctuationSpan = document.createElement('span');
-                punctuationSpan.className = 'solution-punctuation';
-                punctuationSpan.textContent = letter;
+                const punctuationSpan             = document.createElement('span');
+                      punctuationSpan.className   = 'solution-punctuation';
+                      punctuationSpan.textContent = letter;
                 letterGroup.appendChild(punctuationSpan);
             } else {
                 // Create input for solution (only for letters)
-                const solutionInput = document.createElement('input');
-                solutionInput.type = 'text';
-                solutionInput.className = 'solution-input';
-                solutionInput.maxLength = 1;
-                solutionInput.dataset.letter = letter;
+                const solutionInput                = document.createElement('input');
+                      solutionInput.type           = 'text';
+                      solutionInput.className      = 'solution-input';
+                      solutionInput.maxLength      = 1;
+                      solutionInput.dataset.letter = letter;
+
                 solutionInput.addEventListener('input', (e) => handleInput(e, letter));
                 solutionInput.addEventListener('keydown', handleKeyDown);
                 solutionInput.addEventListener('focus', () => highlightMatching(letter));
@@ -71,8 +72,8 @@ function isLetterUsedElsewhere(letter, currentInput) {
 }
 
 function handleInput(event, encryptedLetter) {
-    const input = event.target;
-    const value = input.value.toLowerCase();
+    const input         = event.target;
+    const value         = input.value.toLowerCase();
     const uniqueLetters = document.getElementById('unique-letters').checked;
 
     // Only allow letters
@@ -87,7 +88,7 @@ function handleInput(event, encryptedLetter) {
         if (existingInput) {
             // Clear the letter from its previous location
             const oldEncryptedLetter = existingInput.dataset.letter;
-            const matchingInputs = document.querySelectorAll('.solution-input');
+            const matchingInputs     = document.querySelectorAll('.solution-input');
             matchingInputs.forEach(inp => {
                 if (inp.dataset.letter === oldEncryptedLetter) {
                     inp.value = '';
@@ -107,8 +108,8 @@ function handleInput(event, encryptedLetter) {
     // Move to next input if a letter was entered
     if (value) {
         const allInputsArray = Array.from(allInputs);
-        const currentIndex = allInputsArray.indexOf(input);
-        const nextInput = allInputsArray[currentIndex + 1];
+        const currentIndex   = allInputsArray.indexOf(input);
+        const nextInput      = allInputsArray[currentIndex + 1];
         if (nextInput) {
             nextInput.focus();
         }
@@ -118,7 +119,7 @@ function handleInput(event, encryptedLetter) {
 function highlightMatching(letter) {
     // Remove any existing highlights
     removeHighlights();
-    
+
     // Add highlight to all inputs with matching letter
     const allInputs = document.querySelectorAll('.solution-input');
     allInputs.forEach(inp => {
@@ -136,9 +137,9 @@ function removeHighlights() {
 function handleKeyDown(event) {
     if (event.key === 'Backspace' && !event.target.value) {
         // Move to previous input on backspace if current input is empty
-        const allInputs = Array.from(document.querySelectorAll('.solution-input'));
+        const allInputs    = Array.from(document.querySelectorAll('.solution-input'));
         const currentIndex = allInputs.indexOf(event.target);
-        const prevInput = allInputs[currentIndex - 1];
+        const prevInput    = allInputs[currentIndex - 1];
         if (prevInput) {
             prevInput.focus();
             prevInput.value = '';
