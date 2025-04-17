@@ -117,6 +117,16 @@ button:hover {
     text-transform: lowercase;
 }
 
+.solution-punctuation {
+    display: block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 25px;
+    color: #666;
+    line-height: 30px;
+}
+
 .space-group {
     display: inline-block;
     width: 20px;

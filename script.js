@@ -25,20 +25,27 @@ function createCryptogram() {
             encryptedSpan.textContent = letter;
             letterGroup.appendChild(encryptedSpan);
 
-            // Create input for solution
-            const solutionInput = document.createElement('input');
-            solutionInput.type = 'text';
-            solutionInput.className = 'solution-input';
-            solutionInput.maxLength = 1;
-            solutionInput.dataset.letter = letter;
-            // hey! listen!
-            solutionInput.addEventListener('input', (e) => handleInput(e, letter));
-            solutionInput.addEventListener('keydown', handleKeyDown);
-            solutionInput.addEventListener('focus', () => highlightMatching(letter));
-            solutionInput.addEventListener('blur', removeHighlights);
-            solutionInput.addEventListener('keydown', handleKeyDown);
+            // Check if the character is punctuation
+            if (/[^a-zA-Z]/.test(letter)) {
+                // For punctuation, just display it without an input box
+                const punctuationSpan = document.createElement('span');
+                punctuationSpan.className = 'solution-punctuation';
+                punctuationSpan.textContent = letter;
+                letterGroup.appendChild(punctuationSpan);
+            } else {
+                // Create input for solution (only for letters)
+                const solutionInput = document.createElement('input');
+                solutionInput.type = 'text';
+                solutionInput.className = 'solution-input';
+                solutionInput.maxLength = 1;
+                solutionInput.dataset.letter = letter;
+                solutionInput.addEventListener('input', (e) => handleInput(e, letter));
+                solutionInput.addEventListener('keydown', handleKeyDown);
+                solutionInput.addEventListener('focus', () => highlightMatching(letter));
+                solutionInput.addEventListener('blur', removeHighlights);
 
-            letterGroup.appendChild(solutionInput);
+                letterGroup.appendChild(solutionInput);
+            }
             wordGroup.appendChild(letterGroup);
         });
 
