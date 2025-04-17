@@ -31,11 +31,11 @@ function createCryptogram() {
             solutionInput.className = 'solution-input';
             solutionInput.maxLength = 1;
             solutionInput.dataset.letter = letter;
-// Add event listeners
-solutionInput.addEventListener('input', (e) => handleInput(e, letter));
-solutionInput.addEventListener('keydown', handleKeyDown);
-solutionInput.addEventListener('focus', () => highlightMatching(letter));
-solutionInput.addEventListener('blur', removeHighlights);
+            // hey! listen!
+            solutionInput.addEventListener('input', (e) => handleInput(e, letter));
+            solutionInput.addEventListener('keydown', handleKeyDown);
+            solutionInput.addEventListener('focus', () => highlightMatching(letter));
+            solutionInput.addEventListener('blur', removeHighlights);
             solutionInput.addEventListener('keydown', handleKeyDown);
 
             letterGroup.appendChild(solutionInput);
@@ -45,21 +45,48 @@ solutionInput.addEventListener('blur', removeHighlights);
         puzzleSection.appendChild(wordGroup);
     });
 
-    // Focus on first input
     const firstInput = puzzleSection.querySelector('.solution-input');
     if (firstInput) {
         firstInput.focus();
     }
 }
 
+function isLetterUsedElsewhere(letter, currentInput) {
+    if (!letter) return false;
+
+    const allInputs = document.querySelectorAll('.solution-input');
+    for (const input of allInputs) {
+        if (input !== currentInput && input.value.toLowerCase() === letter) {
+            return input;
+        }
+    }
+    return false;
+}
+
 function handleInput(event, encryptedLetter) {
     const input = event.target;
     const value = input.value.toLowerCase();
+    const uniqueLetters = document.getElementById('unique-letters').checked;
 
     // Only allow letters
     if (value && !/^[a-z]$/.test(value)) {
         input.value = '';
         return;
+    }
+
+    if (uniqueLetters && value) {
+        // Check if this letter is used elsewhere
+        const existingInput = isLetterUsedElsewhere(value, input);
+        if (existingInput) {
+            // Clear the letter from its previous location
+            const oldEncryptedLetter = existingInput.dataset.letter;
+            const matchingInputs = document.querySelectorAll('.solution-input');
+            matchingInputs.forEach(inp => {
+                if (inp.dataset.letter === oldEncryptedLetter) {
+                    inp.value = '';
+                }
+            });
+        }
     }
 
     // Update all matching letters

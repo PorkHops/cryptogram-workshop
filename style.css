@@ -27,7 +27,6 @@ h1 {
 
 .input-section label {
     display: block;
-    margin-bottom: 10px;
     font-weight: bold;
 }
 
@@ -38,6 +37,24 @@ h1 {
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.inline-option {
+    display: inline-flex;
+    align-items: center;
+    font-weight: normal;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.inline-option input[type="checkbox"] {
+    margin: 0 8px 0 0;
 }
 
 button {
